@@ -62,7 +62,7 @@ kanata-parser =   { path = "parser" }
 kanata-tcp-protocol = { path = "tcp_protocol" }
 
 [target.'cfg(target_os = "macos")'.dependencies]
-karabiner-driverkit = "0.1.3"
+karabiner-driverkit = { git = "https://github.com/alexandru0-dev/driverkit", branch = "feat/feature_flags", default_features = false }
 core-graphics = "0.23.2"
 open = { version = "5", optional = true }
 
@@ -115,7 +115,7 @@ indoc = { version = "2.0.4", optional = true }
 regex = { version = "1.10.4", optional = true }
 
 [features]
-default = ["tcp_server","win_sendinput_send_scancodes"]
+default = ["tcp_server", "win_sendinput_send_scancodes", "macos_dext"]
 perf_logging = []
 tcp_server = ["serde_json"]
 win_sendinput_send_scancodes = ["kanata-parser/win_sendinput_send_scancodes"]
@@ -127,6 +127,8 @@ simulated_output = ["indoc"]
 simulated_input = ["indoc"]
 passthru_ahk = ["simulated_input","simulated_output"]
 wasm = [ "instant/wasm-bindgen" ]
+macos_dext = [ "karabiner-driverkit/dext" ]
+macos_kext = [ "karabiner-driverkit/kext" ]
 gui = ["win_manifest","kanata-parser/gui",
   "win_sendinput_send_scancodes","win_llhook_read_scancodes",
   "muldiv","strip-ansi-escapes","open",
